@@ -1,4 +1,4 @@
-Advanced Custom Fields - Color Swatch field add-on
+ACF - Color Swatch field add-on
 ===
 
 * **Author:** Nick Ford 
