@@ -21,12 +21,12 @@ The color swatch field is a radio button field, with a few modifications. The sy
 
 The field expects each line to be a color string, and can interpret all of the possible formats: 
 
-* red
-* \#FF0000
-* rgb(255,0,0)
-* rgba(255,0,0, 1)
-* hsl(0,100%,50%)
-* hsla(0,100%,50%, 1)
+* `red`
+* `\#FF0000`
+* `rgb(255,0,0)`
+* `rgba(255,0,0, 1)`
+* `hsl(0,100%,50%)`
+* `hsla(0,100%,50%, 1)`
 
 Additionally, if you are using rgb/rgba or hsl/hsla, you may use only the values, if desired. For instance:
 
@@ -60,9 +60,9 @@ Assuming you select a swatch with value `"255,0,0"`:
 Screenshots
 ===
 
-![alt tag](https://raw.github.com/nickforddesign/acf-swatch/images/choices.png)
+![Choices Field](/images/choices.png?raw=true)
 
-![alt tag](https://raw.github.com/nickforddesign/acf-swatch/images/swatches.png)
+![Color Swatches](/images/swatches.png?raw=true)
 
 Changelog
 ===
