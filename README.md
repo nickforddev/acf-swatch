@@ -1,10 +1,10 @@
 Advanced Custom Fields - Color Swatch field add-on
 ===
 
-**Author:** Nick Ford 
-**Tags:** acf, acf add-on, color, color swatch, color swatches
-**Requires at least:** 4.0  
-**Tested up to:** 4.4.3
+* **Author:** Nick Ford 
+* **Tags:** acf, acf add-on, color, color swatch, color swatches
+* **Requires at least:** 4.0  
+* **Tested up to:** 4.4.3
 
 License: [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) or later
 
@@ -21,12 +21,12 @@ The color swatch field is a radio button field, with a few modifications. The sy
 
 The field expects each line to be a color string, and can interpret all of the possible formats: 
 
-red
-\#FF0000
-rgb(255,0,0)
-rgba(255,0,0, 1)
-hsl(0,100%,50%)
-hsla(0,100%,50%, 1)
+* red
+* \#FF0000
+* rgb(255,0,0)
+* rgba(255,0,0, 1)
+* hsl(0,100%,50%)
+* hsla(0,100%,50%, 1)
 
 Additionally, if you are using rgb/rgba or hsl/hsla, you may use only the values, if desired. For instance:
 
@@ -51,7 +51,7 @@ Clone the repository to /wp-content/plugins/ in your Wordpress installation, and
 Suggested Usage
 ===
 
-Assuming you select a swatch with value "255,0,0":
+Assuming you select a swatch with value `"255,0,0"`:
 
 ```html
 <section style="background-color: rgba(<?php the_field('swatches')?>, 0.9">
