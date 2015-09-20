@@ -1,0 +1,17 @@
+div[data-field_type="swatch"] ul.acf-swatch-list li input,
+tr[data-field_type="swatch"] ul.acf-swatch-list li input {
+	width: 28px !important;
+	height: 28px;
+	border-radius: 4px;
+	background-size: cover !important;
+}
+
+div[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked,
+tr[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked {
+	border: 3px solid #1e8cbe;
+}
+
+div[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked:before,
+tr[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked:before {
+	display: none;
+}
