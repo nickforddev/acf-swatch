@@ -19,10 +19,12 @@ and activated.
 
 The color swatch field is a radio button field, with a few modifications. The syntax for building the choices is the same as a radio button field, in that you may include a key : value pair, or just a single value, each option separated by a line break. 
 
-The field expects each line to be a color string, and can interpret all of the possible formats: 
+The field expects each line to be a color string, and can interpret all of the possible color formats.
+
+For example, all of the following will produce a bright red swatch:
 
 * `red`
-* `\#FF0000`
+* `#ff0000`
 * `rgb(255,0,0)`
 * `rgba(255,0,0, 1)`
 * `hsl(0,100%,50%)`
@@ -30,12 +32,12 @@ The field expects each line to be a color string, and can interpret all of the p
 
 Additionally, if you are using rgb/rgba or hsl/hsla, you may use only the values, if desired. For instance:
 
-255,0,0, 1 // will be recognized as rgba
-0,100%,50% // will be recognized as hsl
+* `255,0,0, 1 // will be recognized as rgba`
+* `0,100%,50% // will be recognized as hsl`
 
 This may be useful for defining CSS linear-gradients, or other situations where you may want to alter some of the values in the view.
 
-Note that while the field can recognize these shortened syntaxes to display the color swatch in the Wordpress back end, it will still output only what you entered when using the_field() or get_field().
+Note that while the field can recognize these shortened syntaxes to display the color swatch in the Wordpress back end, it will still output only what you entered when using `the_field()` or `get_field()`.
 
 
 Source Repository
