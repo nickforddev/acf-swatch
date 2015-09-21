@@ -65,7 +65,7 @@ Inside a `<style>` tag:
 ```html
 <style>
 section {
-	background-color: rgba(<?php the_field('swatches')?>;
+  background-color: rgba(<?php the_field('swatches')?>;
 }
 </style>
 ```
@@ -77,11 +77,11 @@ Assuming you select a swatch with value `"255,0,0"`:
 ```html
 <style>
 section {
-	background: linear-gradient(
-								to bottom,
-								rgba(<?php the_field('swatches')?>, 1) 0%,
-								rgba(<?php the_field('swatches')?>, 0) 100%
-							);
+  background: linear-gradient(
+                to bottom,
+                rgba(<?php the_field('swatches')?>, 1) 0%,
+                rgba(<?php the_field('swatches')?>, 0) 100%
+              );
 }
 </style>
 ```
