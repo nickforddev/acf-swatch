@@ -1,5 +1,20 @@
 (function($){
 
+	function validTextColour(string) {
+
+    if (string === "") { return false; }
+    if (string === "inherit") { return false; }
+    if (string === "transparent") { return false; }
+
+    var image = document.createElement("img");
+    image.style.color = "rgb(0, 0, 0)";
+    image.style.color = string;
+    if (image.style.color !== "rgb(0, 0, 0)") { return true; }
+    image.style.color = "rgb(255, 255, 255)";
+    image.style.color = string;
+    return image.style.color !== "rgb(255, 255, 255)";
+	}
+
 	function initialize_field($el) {
 		var val = $el.val()
 		var result
@@ -22,7 +37,12 @@
 					result = 'rgb(' + val + ')'; //rgb
 				}
 			} else {
-					result = val; // probably a color string such as 'red'
+				if (validTextColour(val)) { // todo: provide some handing for invalid colors
+				}
+					result = val;
+				} else {
+					result = 'pink';
+					 // probably a color string such as 'red'
 			}
 
 		} else {
@@ -35,20 +55,18 @@
 	}
 
 
-	if( typeof acf.add_action !== 'undefined' ) {
+	if (typeof acf.add_action !== 'undefined') {
 
 		// ACF5
 
-		acf.add_action('ready append', function( $el ){
+		acf.add_action('ready append', function($el) {
 
-			acf.get_fields({ type : 'swatch'}, $el).each(function(){
+			acf.get_fields({ type : 'swatch'}, $el).each(function() {
 				initialize_field($(this));
 			});
 		});
 
-
 	} else {
-
 
 		// ACF4
 
@@ -59,6 +77,5 @@
 			});
 		});
 	}
-
 
 })(jQuery);

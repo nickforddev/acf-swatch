@@ -47,7 +47,8 @@ Source Repository
 Installation
 ===
 
-Clone the repository to /wp-content/plugins/ in your Wordpress installation, and then activate in the Plugins manager.
+* Clone the repository to /wp-content/plugins/ in your Wordpress installation
+* Activate in the Plugins manager.
 
 Suggested Usage
 ===
