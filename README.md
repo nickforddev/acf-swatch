@@ -11,11 +11,10 @@ License: [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) or later
 Description
 ---
 
-This is a simple ACF Add-on field that allows the creation of limited color swatches that behave as radio buttons. This is particularly useful if you want to limit the color options available, instead of using a color picker field. 
+This is a simple ACF Add-on field allowing the creation of color swatches that behave as radio buttons. This is particularly useful if you want to limit the color options available to the end users, instead of using a color picker field. 
 
 This is an add-on for the [Advanced Custom Fields](http://wordpress.org/extend/plugins/advanced-custom-fields/)
-WordPress plugin and will not provide any functionality to WordPress unless Advanced Custom Fields is installed
-and activated.
+WordPress plugin and will not provide any functionality to WordPress unless Advanced Custom Fields is installed and activated.
 
 The color swatch field is a radio button field, with a few modifications. The syntax for building the choices is the same as a radio button field, in that you may include a key : value pair, or just a single value, each option separated by a line break. 
 
@@ -53,10 +52,38 @@ Clone the repository to /wp-content/plugins/ in your Wordpress installation, and
 Suggested Usage
 ===
 
+Assuming you select a swatch with value `"rgba(255,0,0, 1)"`:
+
+As inline CSS:
+
+```html
+<section style="background-color: <?php the_field('swatches')?>">
+```
+
+Inside a `<style>` tag:
+
+```html
+<style>
+section {
+	background-color: rgba(<?php the_field('swatches')?>;
+}
+</style>
+```
+
+One situation where you might want to take advantage of the shorthand syntax would be to control a CSS linear-gradient that fades a color from 100% opacity to 0%. 
+
 Assuming you select a swatch with value `"255,0,0"`:
 
 ```html
-<section style="background-color: rgba(<?php the_field('swatches')?>, 0.9">
+<style>
+section {
+	background: linear-gradient(
+								to bottom,
+								rgba(<?php the_field('swatches')?>, 1) 0%,
+								rgba(<?php the_field('swatches')?>, 0) 100%
+							);
+}
+</style>
 ```
 
 Screenshots
