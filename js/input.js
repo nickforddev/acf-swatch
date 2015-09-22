@@ -41,11 +41,10 @@
 						result = 'rgb(' + val + ')'; //rgb
 					}
 				} else {
-					if (validTextColour(val)) { // todo: provide some handing for invalid colors
-						result = val;
+					if (validTextColour(val)) {
+						result = val; // color was already complete
 					} else {
-						result = 'pink';
-						 // probably a color string such as 'red'
+						result = 'url(http://i.imgur.com/8aFw8DI.png)'; // invalid color
 					}
 				}
 
@@ -67,7 +66,6 @@
 		acf.add_action('ready append', function($el) {
 
 			acf.get_fields({ type : 'swatch'}, $el).each(function() {
-				console.log($(this))
 				initialize_field($(this));
 			});
 		});
@@ -78,17 +76,9 @@
 
 		$(document).on('acf/setup_fields', function(e, postbox){
 
-			/*
 			$(postbox).find('.field[data-field_type="swatch"]').each(function(){
-				console.log($(this))
 				initialize_field($(this));
 			});
-*/
-
-			$('.field[data-field_type="swatch"]').each(function(){
-				initialize_field($(this));
-			});
-
 
 		});
 	}
