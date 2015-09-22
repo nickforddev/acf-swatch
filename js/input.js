@@ -45,6 +45,7 @@
 						result = val; // color was already complete
 					} else {
 						result = 'url(http://i.imgur.com/8aFw8DI.png)'; // invalid color
+						$(this).attr('disabled', true).parent().css('color', '#999');
 					}
 				}
 
