@@ -297,8 +297,8 @@ class acf_field_swatch extends acf_field
 
 
 		// register ACF scripts
-		wp_register_script( 'acf-input-swatch', $this->settings['dir'] . 'js/input.js', array('acf-input'), $this->settings['1.0.0'] );
-		wp_register_style( 'acf-input-swatch', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['1.0.0'] );
+		wp_register_script( 'acf-input-swatch', $this->settings['dir'] . 'js/input.js', array('acf-input') );
+		wp_register_style( 'acf-input-swatch', $this->settings['dir'] . 'css/input.css', array('acf-input') );
 
 
 		// scripts

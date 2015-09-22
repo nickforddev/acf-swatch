@@ -1,57 +1,62 @@
 (function($){
 
 	function validTextColour(string) {
+		if (string === "") { return false; }
+		if (string === "inherit") { return false; }
+		if (string === "transparent") { return false; }
 
-    if (string === "") { return false; }
-    if (string === "inherit") { return false; }
-    if (string === "transparent") { return false; }
-
-    var image = document.createElement("img");
-    image.style.color = "rgb(0, 0, 0)";
-    image.style.color = string;
-    if (image.style.color !== "rgb(0, 0, 0)") { return true; }
-    image.style.color = "rgb(255, 255, 255)";
-    image.style.color = string;
-    return image.style.color !== "rgb(255, 255, 255)";
+		var image = document.createElement("img");
+		image.style.color = "rgb(0, 0, 0)";
+		image.style.color = string;
+		if (image.style.color !== "rgb(0, 0, 0)") { return true; }
+		image.style.color = "rgb(255, 255, 255)";
+		image.style.color = string;
+		return image.style.color !== "rgb(255, 255, 255)";
 	}
 
 	function initialize_field($el) {
-		var val = $el.val()
-		var result
+		var inputTag = $el.find('input');
 
-		// check if color statement is in shorthand syntax
+		inputTag.each(function() {
+			var val = $(this).val();
+			var result;
 
-		if (val.indexOf('#') < 0 && val.indexOf('rgb') < 0 && val.indexOf('hsl') < 0) {
+			console.log(val)
 
-			if (val.indexOf('%') > -1) { // shorthand syntax for hsl
-				if (val.split(',').length > 3) { // hsla confirmed
-					result = 'hsla(' + val + ')'; //hsla
+			// check if color statement is in shorthand syntax
+
+			if (val.indexOf('#') < 0 && val.indexOf('rgb') < 0 && val.indexOf('hsl') < 0) {
+
+				if (val.indexOf('%') > -1) { // shorthand syntax for hsl
+					if (val.split(',').length > 3) { // hsla confirmed
+						result = 'hsla(' + val + ')'; //hsla
+					} else {
+						result = 'hsl(' + val + ')'; //hsl
+					}
+
+				} else if (val.split(',').length > 1) { // shorthand for either rgb or rgba
+					if (val.split(',').length > 3) { // rgba confirmed
+						result = 'rgba(' + val + ')'; //rgba
+					} else {
+						result = 'rgb(' + val + ')'; //rgb
+					}
 				} else {
-					result = 'hsl(' + val + ')'; //hsl
+					if (validTextColour(val)) { // todo: provide some handing for invalid colors
+						result = val;
+					} else {
+						result = 'pink';
+						 // probably a color string such as 'red'
+					}
 				}
 
-			} else if (val.split(',').length > 1) { // shorthand for either rgb or rgba
-				if (val.split(',').length > 3) { // rgba confirmed
-					result = 'rgba(' + val + ')'; //rgba
-				} else {
-					result = 'rgb(' + val + ')'; //rgb
-				}
 			} else {
-				if (validTextColour(val)) { // todo: provide some handing for invalid colors
-				}
-					result = val;
-				} else {
-					result = 'pink';
-					 // probably a color string such as 'red'
+				result = val; // not shorthand syntax
 			}
 
-		} else {
-			result = val; // not shorthand syntax
-		}
+			var bg = result;
 
-		var bg = result;
-
-		$el.css('background', bg);
+			$(this).css('background', bg);
+		});
 	}
 
 
@@ -62,6 +67,7 @@
 		acf.add_action('ready append', function($el) {
 
 			acf.get_fields({ type : 'swatch'}, $el).each(function() {
+				console.log($(this))
 				initialize_field($(this));
 			});
 		});
@@ -72,9 +78,18 @@
 
 		$(document).on('acf/setup_fields', function(e, postbox){
 
+			/*
 			$(postbox).find('.field[data-field_type="swatch"]').each(function(){
+				console.log($(this))
 				initialize_field($(this));
 			});
+*/
+
+			$('.field[data-field_type="swatch"]').each(function(){
+				initialize_field($(this));
+			});
+
+
 		});
 	}
 
