@@ -1,13 +1,30 @@
-div[data-field_type="swatch"] ul.acf-swatch-list li input,
-tr[data-field_type="swatch"] ul.acf-swatch-list li input {
-	width: 28px !important;
-	height: 28px;
-	border-radius: 4px;
-	background-size: cover !important;
+div[data-field_type="swatch"] ul.acf-swatch-list li label,
+tr[data-field_type="swatch"] ul.acf-swatch-list li label {
+	display: inline-block;
 }
 
-div[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked,
-tr[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked {
+div[data-field_type="swatch"] ul.acf-swatch-list li input,
+tr[data-field_type="swatch"] ul.acf-swatch-list li input {
+	position: fixed;
+	top: -9999px;
+	opacity: 0;
+}
+
+div[data-field_type="swatch"] ul.acf-swatch-list li label .swatch-toggle,
+tr[data-field_type="swatch"] ul.acf-swatch-list li label .swatch-toggle {
+	display: inline-block;
+	position: relative;
+	width: 28px !important;
+	height: 28px;
+	bottom: -8px;
+	margin-right: 6px;
+	border-radius: 4px;
+	background-size: cover !important;
+	box-sizing: border-box;
+}
+
+div[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked ~ .swatch-toggle,
+tr[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked ~ .swatch-toggle {
 	border: 3px solid #1e8cbe;
 }
 

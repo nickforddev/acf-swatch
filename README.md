@@ -1,9 +1,9 @@
 ACF - Color Swatch field add-on
 ===
 
-* **Author:** Nick Ford 
+* **Author:** Nick Ford
 * **Tags:** acf, acf add-on, color, color swatch, color swatches
-* **Requires at least:** 4.0  
+* **Requires at least:** 4.0
 * **Tested up to:** 4.4.3
 
 License: [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) or later
@@ -11,12 +11,12 @@ License: [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) or later
 Description
 ---
 
-This is a simple ACF Add-on field allowing the creation of color swatches that behave as radio buttons. This is particularly useful if you want to limit the color options available to the end users, instead of using a color picker field. 
+This is a simple ACF Add-on field allowing the creation of color swatches that behave as radio buttons. This is particularly useful if you want to limit the color options available to the end users, instead of using a color picker field.
 
 This is an add-on for the [Advanced Custom Fields](http://wordpress.org/extend/plugins/advanced-custom-fields/)
 WordPress plugin and will not provide any functionality to WordPress unless Advanced Custom Fields is installed and activated.
 
-The color swatch field is a radio button field, with a few modifications. The syntax for building the choices is the same as a radio button field, in that you may include a key : value pair, or just a single value, each option separated by a line break. 
+The color swatch field is a radio button field, with a few modifications. The syntax for building the choices is the same as a radio button field, in that you may include a key : value pair, or just a single value, each option separated by a line break.
 
 The field expects each line to be a color string, and can interpret all of the possible color formats.
 
@@ -71,7 +71,7 @@ section {
 </style>
 ```
 
-One situation where you might want to take advantage of the shorthand syntax would be to control a CSS linear-gradient that fades a color from 100% opacity to 0%. 
+One situation where you might want to take advantage of the shorthand syntax would be to control a CSS linear-gradient that fades a color from 100% opacity to 0%.
 
 Assuming you select a swatch with value `"255,0,0"`:
 
@@ -96,6 +96,10 @@ Screenshots
 
 Changelog
 ===
+
+1.1
+---
+* Vastly improved browser / OS support by replacing input elements with block elements
 
 1.0
 ---

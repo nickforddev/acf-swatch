@@ -55,7 +55,7 @@
 
 			var bg = result;
 
-			$(this).css('background', bg);
+			$(this).siblings('.swatch-toggle').css('background', bg);
 		});
 	}
 

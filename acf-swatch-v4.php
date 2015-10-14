@@ -97,7 +97,7 @@ class acf_field_swatch extends acf_field
 
 
 				// HTML
-				$e .= '<li><label><input id="' . esc_attr($field['id']) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . esc_attr( $atts ) . ' />' . $value . '</label></li>';
+				$e .= '<li><label><input id="' . esc_attr($field['id']) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . esc_attr( $atts ) . ' /><div class="swatch-toggle"></div>' . $value . '</label></li>';
 			}
 		}
 
@@ -120,7 +120,7 @@ class acf_field_swatch extends acf_field
 			}
 
 
-			$e .= '<li><label><input id="' . esc_attr($field['id']) . '-other" type="radio" name="' . esc_attr($field['name']) . '" value="other" ' . $atts . ' />' . __("Other", 'acf') . '</label> <input type="text" ' . $atts2 . ' /></li>';
+			$e .= '<li><label><input id="' . esc_attr($field['id']) . '-other" type="radio" name="' . esc_attr($field['name']) . '" value="other" ' . $atts . ' /><div class="swatch-toggle"></div>' . __("Other", 'acf') . '</label> <input type="text" ' . $atts2 . ' /></li>';
 		}
 
 
