@@ -44,7 +44,7 @@
 					if (validTextColour(val)) {
 						result = val; // color was already complete
 					} else {
-						result = 'url(http://i.imgur.com/8aFw8DI.png)'; // invalid color
+						result = 'transparent'; // invalid color
 						$(this).attr('disabled', true).parent().css('color', '#999');
 					}
 				}
@@ -55,7 +55,7 @@
 
 			var bg = result;
 
-			$(this).siblings('.swatch-toggle').css('background', bg);
+			$(this).siblings('.swatch-toggle').children('.swatch-color').css('background', bg);
 		});
 	}
 

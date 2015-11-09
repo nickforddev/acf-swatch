@@ -18,13 +18,23 @@ tr[data-field_type="swatch"] ul.acf-swatch-list li label .swatch-toggle {
 	height: 28px;
 	bottom: -8px;
 	margin-right: 6px;
+	border: 1px solid #eee;
 	border-radius: 4px;
 	background-size: cover !important;
+	background-image: url('../images/checkers.png');
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+div[data-field_type="swatch"] ul.acf-swatch-list li label .swatch-toggle .swatch-color,
+tr[data-field_type="swatch"] ul.acf-swatch-list li label .swatch-toggle .swatch-color {
+	width: 100%;
+	height: 100%;
 	box-sizing: border-box;
 }
 
-div[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked ~ .swatch-toggle,
-tr[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked ~ .swatch-toggle {
+div[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked ~ .swatch-toggle .swatch-color,
+tr[data-field_type="swatch"] ul.acf-swatch-list li input[type=radio]:checked ~ .swatch-toggle .swatch-color {
 	border: 3px solid #1e8cbe;
 }
 

@@ -95,7 +95,7 @@ class acf_field_swatch extends acf_field
 
 
 				// HTML
-				$e .= '<li><label><input id="' . esc_attr($field['id']) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . esc_attr( $atts ) . ' /><div class="swatch-toggle"></div>' . $value . '</label></li>';
+				$e .= '<li><label><input id="' . esc_attr($field['id']) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . esc_attr( $atts ) . ' /><div class="swatch-toggle"><div class="swatch-color"></div></div>' . $value . '</label></li>';
 			}
 		}
 
@@ -118,7 +118,7 @@ class acf_field_swatch extends acf_field
 			}
 
 
-			$e .= '<li><label><input id="' . esc_attr($field['id']) . '-other" type="radio" name="' . esc_attr($field['name']) . '" value="other" ' . $atts . ' /><div class="swatch-toggle"></div>' . __("Other", 'acf') . '</label> <input type="text" ' . $atts2 . ' /></li>';
+			$e .= '<li><label><input id="' . esc_attr($field['id']) . '-other" type="radio" name="' . esc_attr($field['name']) . '" value="other" ' . $atts . ' /><div class="swatch-toggle"><div class="swatch-color"></div></div>' . __("Other", 'acf') . '</label> <input type="text" ' . $atts2 . ' /></li>';
 		}
 
 
@@ -302,7 +302,7 @@ class acf_field_swatch extends acf_field
 
 
 		// register ACF scripts
-		wp_register_script( 'acf-input-swatch', $this->settings['dir'] . 'js/input.js', array('acf-input'), $this->settings['1.0.0'] );
+		wp_register_script( 'acf-input-swatch', $this->settings['dir'] . 'js/min/input-min.js', array('acf-input'), $this->settings['1.0.0'] );
 		wp_register_style( 'acf-input-swatch', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['1.0.0'] );
 
 
