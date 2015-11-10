@@ -101,3 +101,4 @@ Changelog
 * Vastly improved browser / OS support by replacing input elements with block elements
 
 9/20/15 - v1.0.0 Initial Release
+---
