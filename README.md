@@ -38,12 +38,6 @@ This may be useful for defining CSS linear-gradients, or other situations where 
 
 Note that while the field can recognize these shortened syntaxes to display the color swatch in the Wordpress back end, it will still output only what you entered when using `the_field()` or `get_field()`.
 
-
-Source Repository
----
-[https://github.com/nickforddesign/acf-swatch](https://github.com/nickforddesign/acf-swatch)
-
-
 Installation
 ===
 
@@ -66,7 +60,7 @@ Inside a `<style>` tag:
 ```html
 <style>
 section {
-  background-color: rgba(<?php the_field('swatches')?>;
+  background-color: <?php the_field('swatches')?>;
 }
 </style>
 ```
@@ -97,10 +91,13 @@ Screenshots
 Changelog
 ===
 
-1.1
+11/9/15 - v1.0.2 New Features
+---
+* Added checkerboard pattern to indicate transparency
+* Added subtle border to show swatches that match the background color
+
+10/14/15 - v1.0.1 Bugfix
 ---
 * Vastly improved browser / OS support by replacing input elements with block elements
 
-1.0
----
-* Initial Release
+9/20/15 - v1.0.0 Initial Release
