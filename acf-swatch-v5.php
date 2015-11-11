@@ -163,18 +163,9 @@ class acf_field_swatch extends acf_field
 				<label for=""><?php _e("Choices",'acf'); ?></label>
 				<p class="description"><?php _e("Enter your colors one per line",'acf'); ?><br />
 				<br />
-				<?php _e("red",'acf'); ?><br />
-				<?php _e("#ff0000",'acf'); ?><br />
-				<br />
-				<?php _e("#ff0000 : Red",'acf'); ?><br />
-				<?php _e("rgb(0,0,100) : Blueish",'acf'); ?><br />
-				<?php _e("rgba(0,0,100,0.9) : Blueish",'acf'); ?><br />
-				<?php _e("You may also omit the rgb() entirel, like so:",'acf'); ?><br />
-				<?php _e("0,0,100 : Blueish",'acf'); ?><br />
-
-				<?php _e("#ff0000 : Red",'acf'); ?><br />
-				<?php _e("hsl(1, 100%, 40%) : Red",'acf'); ?><br />
-				<?php _e("hsla(1, 100%, 40%, 0.8) : Red",'acf'); ?><br />
+				<?php _e("red : Red",'acf'); ?><br />
+				<?php _e("#fff : White",'acf'); ?><br />
+				<?php _e("rgba(0,0,0, 1) : Black",'acf'); ?><br />
 				</p>
 			</td>
 			<td>

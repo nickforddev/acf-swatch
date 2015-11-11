@@ -163,13 +163,11 @@ class acf_field_swatch extends acf_field
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
 				<label for=""><?php _e("Choices",'acf'); ?></label>
-				<p class="description"><?php _e("Enter your choices one per line",'acf'); ?><br />
-				<br />
-				<?php _e("Red",'acf'); ?><br />
-				<?php _e("Blue",'acf'); ?><br />
+				<p class="description"><?php _e("Enter your colors one per line",'acf'); ?><br />
 				<br />
 				<?php _e("red : Red",'acf'); ?><br />
-				<?php _e("blue : Blue",'acf'); ?><br />
+				<?php _e("#fff : White",'acf'); ?><br />
+				<?php _e("rgba(0,0,0, 1) : Black",'acf'); ?><br />
 				</p>
 			</td>
 			<td>
