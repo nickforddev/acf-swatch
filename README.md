@@ -5,6 +5,7 @@ ACF - Color Swatch field add-on
 * **Tags:** acf, acf add-on, color, color swatch, color swatches
 * **Requires at least:** 4.0
 * **Tested up to:** 4.4.3
+* **Note: Does not yet work with 5+**
 
 License: [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) or later
 
