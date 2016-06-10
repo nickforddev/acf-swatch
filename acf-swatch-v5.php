@@ -11,6 +11,8 @@ class acf_field_swatch extends acf_field
 	*  @date	9/20/15
 	*/
 
+	var $name, $label, $category, $defaults, $settings;
+
 	function __construct()
 	{
 		// vars
@@ -293,8 +295,8 @@ class acf_field_swatch extends acf_field
 
 
 		// register ACF scripts
-		wp_register_script( 'acf-input-swatch', $this->settings['dir'] . 'js/min/input-min.js', array('acf-input'), $this->settings['1.0.0'] );
-		wp_register_style( 'acf-input-swatch', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['1.0.0'] );
+		wp_register_script( 'acf-input-swatch', $this->settings['dir'] . 'js/min/input-min.js', array('acf-input'), $this->settings['version'] );
+		wp_register_style( 'acf-input-swatch', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['version'] );
 
 
 		// scripts
