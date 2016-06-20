@@ -15,13 +15,13 @@
 	}
 
 	function initialize_field($el) {
-		var inputTag = $el.find('input');
+		var inputTag = $el.find('input:not([type="hidden"])');
 
 		inputTag.each(function() {
 			var val = $(this).val();
 			var result;
 
-			console.log(val)
+			console.info(val)
 
 			// check if color statement is in shorthand syntax
 
@@ -45,7 +45,7 @@
 						result = val; // color was already complete
 					} else {
 						result = 'transparent'; // invalid color
-						$(this).attr('disabled', true).parent().css('color', '#999');
+						$(this).attr('disabled', true).parent().addClass('disabled');
 					}
 				}
 

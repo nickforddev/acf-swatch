@@ -1,5 +1,21 @@
 <?php
 
+/*
+*  ACF Color Swatch Field Class
+*
+*  All the logic for this field type
+*
+*  @class 		acf_field_swatch
+*  @extends		acf_field
+*  @package		ACF
+*  @subpackage	Fields
+*/
+
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
+if( ! class_exists('acf_field_swatch') ) :
+
 class acf_field_swatch extends acf_field
 {
 	/*
@@ -11,12 +27,13 @@ class acf_field_swatch extends acf_field
 	*  @date	9/20/15
 	*/
 
-	function __construct()
-	{
+	private $settings;
+
+	function __construct() {
 		// vars
 		$this->name = 'swatch';
 		$this->label = __("Color Swatch",'acf');
-		$this->category = __("Choice",'acf');
+		$this->category = 'choice';
 		$this->defaults = array(
 			'layout'			=>	'vertical',
 			'choices'			=>	array(),
@@ -25,9 +42,10 @@ class acf_field_swatch extends acf_field
 			'save_other_choice'	=>	0,
 		);
 		$this->settings = array(
-			'path' => apply_filters('acf/helpers/get_path', __FILE__),
-			'dir' => apply_filters('acf/helpers/get_dir', __FILE__),
-			'version' => '1.0.0'
+			'basename'	=> plugin_basename( __FILE__ ),
+			'path'		=> plugin_dir_path( __FILE__ ),
+			'url'		=> plugin_dir_url( __FILE__ ),
+			'version'   => '1.0.0'
 		);
 
 
@@ -38,99 +56,162 @@ class acf_field_swatch extends acf_field
 
 
 	/*
-	*  create_field()
+	*  render_field()
 	*
 	*  Create the HTML interface for your field
 	*
-	*  @param	$field - an array holding all the field's data
+	*  @param	$field (array) the $field being rendered
 	*
 	*  @type	action
 	*  @since	3.6
 	*  @date	23/01/13
+	*
+	*  @param	$field (array) the $field being edited
+	*  @return	n/a
 	*/
 
-	function create_field( $field )
-	{
-
-		$obj = array();
-		$arr = explode("\n", $field['choices']);
-
-		foreach($arr as $a) {
-			$k = explode(' : ', $a);
-			$obj[$k[0]] = $k[1];
-		}
-
-		$field['choices'] = $obj; // this all seems very hacky... the default radio class didnt use this
+	function render_field( $field ) {
 
 		// vars
 		$i = 0;
-		$e = '<ul class="acf-swatch-list ' . esc_attr($field['class']) . ' ' . esc_attr($field['layout']) . '">';
+		$e = '';
+		$ul = array(
+			'class'				=> 'acf-swatch-list',
+			'data-allow_null'	=> $field['allow_null'],
+			'data-other_choice'	=> $field['other_choice']
+		);
 
+		// append to class
+		$ul['class'] .= ' ' . ($field['layout'] == 'horizontal' ? 'acf-hl' : 'acf-bl');
+		$ul['class'] .= ' ' . $field['class'];
 
-		// add choices
-		if( is_array($field['choices']) )
-		{
-			foreach( $field['choices'] as $key => $value )
-			{
-				// vars
-				$i++;
-				$atts = '';
+		// select value
+		$checked = '';
+		$value = strval($field['value']);
 
+		// selected choice
+		if( isset($field['choices'][ $value ]) ) {
 
-				// if there is no value and this is the first of the choices, select this on by default
-				if( $field['value'] === false )
-				{
-					if( $i === 1 )
-					{
-						$atts = 'checked="checked" data-checked="checked"';
-					}
-				}
-				else
-				{
-					if( strval($key) === strval($field['value']) )
-					{
-						$atts = 'checked="checked" data-checked="checked"';
-					}
-				}
+			$checked = $value;
 
+			// custom choice
+		} elseif( $field['other_choice'] && $value !== '' ) {
 
-				// HTML
-				$e .= '<li><label><input id="' . esc_attr($field['id']) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . esc_attr( $atts ) . ' /><div class="swatch-toggle"><div class="swatch-color"></div></div>' . $value . '</label></li>';
-			}
+			$checked = 'other';
+
+			// allow null
+		} elseif( $field['allow_null'] ) {
+
+			// do nothing
+
+			// select first input by default
+		} else {
+
+			$checked = key($field['choices']);
+
 		}
 
+		// ensure $checked is a string (could be an int)
+		$checked = strval($checked);
 
 		// other choice
-		if( $field['other_choice'] )
-		{
+		if( $field['other_choice'] ) {
+
 			// vars
-			$atts = '';
-			$atts2 = 'name="" value="" style="display:none"';
+			$input = array(
+				'type'		=> 'text',
+				'name'		=> $field['name'],
+				'value'		=> '',
+				'disabled'	=> 'disabled'
+			);
 
 
-			if( $field['value'] !== false )
-			{
-				if( !isset($field['choices'][ $field['value'] ]) )
-				{
-					$atts = 'checked="checked" data-checked="checked"';
-					$atts2 = 'name="' . esc_attr($field['name']) . '" value="' . esc_attr($field['value']) . '"' ;
-				}
+			// select other choice if value is not a valid choice
+			if( $checked === 'other' ) {
+
+				unset($input['disabled']);
+				$input['value'] = $field['value'];
+
 			}
 
 
-			$e .= '<li><label><input id="' . esc_attr($field['id']) . '-other" type="radio" name="' . esc_attr($field['name']) . '" value="other" ' . $atts . ' /><div class="swatch-toggle"><div class="swatch-color"></div></div>' . __("Other", 'acf') . '</label> <input type="text" ' . $atts2 . ' /></li>';
+			// append other choice
+			$field['choices']['other'] = '</label><input type="text" ' . acf_esc_attr($input) . ' /><label>';
+
 		}
 
 
+		// bail early if no choices
+		if( empty($field['choices']) ) return;
+
+
+		// hiden input
+		$e .= acf_get_hidden_input( array('name' => $field['name']) );
+
+
+		// open
+		$e .= '<ul ' . acf_esc_attr($ul) . '>';
+
+		// foreach choices
+		foreach( $field['choices'] as $value => $label ) {
+
+			// ensure value is a string
+			$value = strval($value);
+			$class = '';
+
+
+			// increase counter
+			$i++;
+
+
+			// vars
+			$atts = array(
+				'type'	=> 'radio',
+				'id'	=> $field['id'],
+				'name'	=> $field['name'],
+				'value'	=> $value
+			);
+
+
+			// checked
+			if( $value === $checked ) {
+
+				$atts['checked'] = 'checked';
+				$class = ' class="selected"';
+
+			}
+
+
+			// disabled
+			if( isset($field['disabled']) && acf_in_array($value, $field['disabled']) ) {
+				$atts['disabled'] = 'disabled';
+			}
+
+
+			// id (use crounter for each input)
+			if( $i > 1 ) {
+				$atts['id'] .= '-' . $value;
+			}
+
+
+			// append
+			$e .= '<li><label' . $class . '><input ' . acf_esc_attr( $atts ) . '/><div class="swatch-toggle"><div class="swatch-color"></div></div>' . $label . '</label></li>';
+
+
+		}
+
+		// close
 		$e .= '</ul>';
 
+
+		// return
 		echo $e;
 
 	}
 
 
 	/*
-	*  create_options()
+	*  render_field_settings()
 	*
 	*  Create extra options for your field. This is rendered when editing a field.
 	*  The value of $field['name'] can be used (like bellow) to save extra data to the $field
@@ -142,108 +223,107 @@ class acf_field_swatch extends acf_field
 	*  @param	$field	- an array holding all the field's data
 	*/
 
-	function create_options( $field )
-	{
-		// vars
-		$key = $field['name'];
+	function render_field_settings( $field ) {
 
-		// implode checkboxes so they work in a textarea
-		if( is_array($field['choices']) )
-		{
-			foreach( $field['choices'] as $k => $v )
-			{
-				$field['choices'][ $k ] = $k . ' : ' . $v;
-			}
-			$field['choices'] = implode("\n", $field['choices']);
-		}
+		// encode choices (convert from array)
+		$field['choices'] = acf_encode_choices($field['choices']);
 
-		?>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label for=""><?php _e("Choices",'acf'); ?></label>
-				<p class="description"><?php _e("Enter your colors one per line",'acf'); ?><br />
-				<br />
-				<?php _e("red : Red",'acf'); ?><br />
-				<?php _e("#fff : White",'acf'); ?><br />
-				<?php _e("rgba(0,0,0, 1) : Black",'acf'); ?><br />
-				</p>
-			</td>
-			<td>
-				<?php
 
-				do_action('acf/create_field', array(
-					'type'	=>	'textarea',
-					'class' => 	'textarea field_option-choices',
-					'name'	=>	'fields['.$key.'][choices]',
-					'value'	=>	$field['choices'],
-				));
+		// choices
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Choices','acf'),
+			'instructions'	=> __('Enter each color option one per line.','acf') . '<br /><br />' . __('red : Red','acf') . '<br />' . __('#fff : White','acf') . '<br />' . __('rgba(0,0,0,1) : Black','acf'),
+			'type'			=> 'textarea',
+			'name'			=> 'choices',
+		));
 
-				?>
-				<div class="radio-option-other_choice">
-				<?php
 
-				do_action('acf/create_field', array(
-					'type'		=>	'true_false',
-					'name'		=>	'fields['.$key.'][other_choice]',
-					'value'		=>	$field['other_choice'],
-					'message'	=>	__("Add 'other' choice to allow for custom values", 'acf')
-				));
+		// allow_null
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Allow Null?','acf'),
+			'instructions'	=> '',
+			'type'			=> 'radio',
+			'name'			=> 'allow_null',
+			'choices'		=> array(
+				1				=> __("Yes",'acf'),
+				0				=> __("No",'acf'),
+			),
+			'layout'	=>	'horizontal',
+		));
 
-				?>
-				</div>
-				<div class="radio-option-save_other_choice" <?php if( !$field['other_choice'] ): ?>style="display:none"<?php endif; ?>>
-				<?php
 
-				do_action('acf/create_field', array(
-					'type'		=>	'true_false',
-					'name'		=>	'fields['.$key.'][save_other_choice]',
-					'value'		=>	$field['save_other_choice'],
-					'message'	=>	__("Save 'other' values to the field's choices", 'acf')
-				));
+		// other_choice
+		/* Doesn't work currently
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Other','acf'),
+			'instructions'	=> '',
+			'type'			=> 'true_false',
+			'name'			=> 'other_choice',
+			'message'		=> __("Add 'other' choice to allow for custom values", 'acf')
+		));
+		*/
 
-				?>
-				</div>
-			</td>
-		</tr>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label><?php _e("Default Value",'acf'); ?></label>
-			</td>
-			<td>
-				<?php
 
-				do_action('acf/create_field', array(
-					'type'	=>	'text',
-					'name'	=>	'fields['.$key.'][default_value]',
-					'value'	=>	$field['default_value'],
-				));
+		// save_other_choice
+		/*
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Save Other','acf'),
+			'instructions'	=> '',
+			'type'			=> 'true_false',
+			'name'			=> 'save_other_choice',
+			'message'		=> __("Save 'other' values to the field's choices", 'acf')
+		));
+		*/
 
-				?>
-			</td>
-		</tr>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label for=""><?php _e("Layout",'acf'); ?></label>
-			</td>
-			<td>
-				<?php
 
-				do_action('acf/create_field', array(
-					'type'	=>	'radio',
-					'name'	=>	'fields['.$key.'][layout]',
-					'value'	=>	$field['layout'],
-					'layout' => 'horizontal',
-					'choices' => array(
-						'vertical' => __("Vertical",'acf'),
-						'horizontal' => __("Horizontal",'acf')
-					)
-				));
+		// default_value
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Default Value','acf'),
+			'instructions'	=> __('Appears when creating a new post','acf'),
+			'type'			=> 'text',
+			'name'			=> 'default_value',
+		));
 
-				?>
-			</td>
-		</tr>
-		<?php
 
+		// layout
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Layout','acf'),
+			'instructions'	=> '',
+			'type'			=> 'radio',
+			'name'			=> 'layout',
+			'layout'		=> 'horizontal',
+			'choices'		=> array(
+				'vertical'		=> __("Vertical",'acf'),
+				'horizontal'	=> __("Horizontal",'acf')
+			)
+		));
+
+	}
+
+
+	/*
+	*  update_field()
+	*
+	*  This filter is appied to the $field before it is saved to the database
+	*
+	*  @type	filter
+	*  @since	3.6
+	*  @date	23/01/13
+	*
+	*  @param	$field - the field array holding all the field options
+	*  @param	$post_id - the field group ID (post_type = acf)
+	*
+	*  @return	$field - the modified field
+	*/
+
+	function update_field( $field ) {
+
+		// decode choices (convert to array)
+		$field['choices'] = acf_decode_choices($field['choices']);
+
+
+		// return
+		return $field;
 	}
 
 
@@ -255,6 +335,7 @@ class acf_field_swatch extends acf_field
 	*  @type	filter
 	*  @since	3.6
 	*  @date	23/01/13
+	*  @todo	Fix bug where $field was found via json and has no ID
 	*
 	*  @param	$value - the value which will be saved in the database
 	*  @param	$post_id - the $post_id of which the value will be saved
@@ -263,38 +344,85 @@ class acf_field_swatch extends acf_field
 	*  @return	$value - the modified value
 	*/
 
-	function update_value( $value, $post_id, $field )
-	{
-		// validate
-		if( $field['save_other_choice'] )
-		{
+	function update_value( $value, $post_id, $field ) {
+
+		// bail early if no value (allow 0 to be saved)
+		if( !$value && !is_numeric($value) ) return $value;
+
+
+		// save_other_choice
+		if( $field['save_other_choice'] ) {
+
 			// value isn't in choices yet
-			if( !isset($field['choices'][ $value ]) )
-			{
+			if( !isset($field['choices'][ $value ]) ) {
+
+				// get raw $field (may have been changed via repeater field)
+				// if field is local, it won't have an ID
+				$selector = $field['ID'] ? $field['ID'] : $field['key'];
+				$field = acf_get_field( $selector, true );
+
+
+				// bail early if no ID (JSON only)
+				if( !$field['ID'] ) return $value;
+
+
 				// update $field
 				$field['choices'][ $value ] = $value;
 
 
-				// can save
-				if( isset($field['field_group']) )
-				{
-					do_action('acf/update_field', $field, $field['field_group']);
-				}
+				// save
+				acf_update_field( $field );
 
 			}
+
 		}
 
+
+		// return
 		return $value;
 	}
 
-	function input_admin_enqueue_scripts()
-	{
-		// Note: This function can be removed if not used
 
+	/*
+	*  load_value()
+	*
+	*  This filter is appied to the $value after it is loaded from the db
+	*
+	*  @type	filter
+	*  @since	5.2.9
+	*  @date	23/01/13
+	*
+	*  @param	$value - the value found in the database
+	*  @param	$post_id - the $post_id from which the value was loaded from
+	*  @param	$field - the field array holding all the field options
+	*
+	*  @return	$value - the value to be saved in te database
+	*/
+
+	function load_value( $value, $post_id, $field ) {
+
+		// must be single value
+		if( is_array($value) ) {
+
+			$value = array_pop($value);
+
+		}
+
+
+		// return
+		return $value;
+
+	}
+
+	function input_admin_enqueue_scripts() {
+
+		// vars
+		$url = $this->settings['url'];
+		$version = $this->settings['version'];
 
 		// register ACF scripts
-		wp_register_script( 'acf-input-swatch', $this->settings['dir'] . 'js/min/input-min.js', array('acf-input'), $this->settings['1.0.0'] );
-		wp_register_style( 'acf-input-swatch', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['1.0.0'] );
+		wp_register_script( 'acf-input-swatch', trailingslashit( $url ) . 'js/input.js', array('acf-input'), $version );
+		wp_register_style( 'acf-input-swatch', trailingslashit( $url ) . 'css/input.css', array('acf-input'), $version );
 
 
 		// scripts
@@ -314,4 +442,4 @@ class acf_field_swatch extends acf_field
 
 new acf_field_swatch();
 
-?>
+endif;
