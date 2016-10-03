@@ -1,0 +1,11 @@
+{
+    "name": "nickford/acf-swatch",
+    "description": "This is a simple ACF Add-on field allowing the creation of color swatches that behave as radio buttons.",
+    "authors": [
+        {
+            "name": "Nick Ford",
+            "email": "nickford@Nicks-MacBook-Pro.local"
+        }
+    ],
+    "require": {}
+}
