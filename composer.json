@@ -7,6 +7,6 @@
             "email": "nickford@Nicks-MacBook-Pro.local"
         }
     ],
-    "minimum-stability": "stable",
-    "require": {}
+    "require": {},
+    "version": "1.0.0"
 }
