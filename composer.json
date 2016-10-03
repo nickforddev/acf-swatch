@@ -7,5 +7,6 @@
             "email": "nickford@Nicks-MacBook-Pro.local"
         }
     ],
+    "minimum-stability": "stable",
     "require": {}
 }
