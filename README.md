@@ -4,8 +4,7 @@ ACF - Color Swatch field add-on
 * **Author:** Nick Ford
 * **Tags:** acf, acf add-on, color, color swatch, color swatches
 * **Requires at least:** 4.0
-* **Tested up to:** 4.4.3
-* **Note: Does not yet work with 5+**
+* **Tested up to:** 5
 
 License: [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) or later
 
@@ -44,6 +43,10 @@ Installation
 
 * Clone the repository to /wp-content/plugins/ in your Wordpress installation
 * Activate in the Plugins manager.
+
+OR
+
+* Install using composer `composer install`
 
 Suggested Usage
 ===
@@ -91,6 +94,12 @@ Screenshots
 
 Changelog
 ===
+
+10/7/16 - v1.0.3 
+---
+* Merged 9d733d9 to master
+* Updated readme to reflect current previous pull request merges
+* Added readme.txt for Wordpress plugin database
 
 11/9/15 - v1.0.2 New Features
 ---
