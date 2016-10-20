@@ -41,14 +41,18 @@ Note that while the field can recognize these shortened syntaxes to display the 
 Installation
 ===
 
+Normal
+---
 * Clone the repository to /wp-content/plugins/ in your Wordpress installation
 * Activate in the Plugins manager.
 
-OR
+or
 
+Composer
+---
 If using Composer (e.g. with [Bedrock](https://roots.io/bedrock/))
 * Add repo to `composer.json`:
-```
+```json
 "repositories": [
   {
     "type": "git",
