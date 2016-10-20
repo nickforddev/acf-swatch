@@ -46,7 +46,17 @@ Installation
 
 OR
 
-* Install using composer `composer install`
+If using Composer (e.g. with [Bedrock](https://roots.io/bedrock/))
+* Add repo to `composer.json`:
+```
+"repositories": [
+  {
+    "type": "git",
+    "url": "https://github.com/nickforddesign/acf-swatch"
+  }
+]
+```
+* Install using composer `composer require nickford/acf-swatch`
 
 Suggested Usage
 ===
