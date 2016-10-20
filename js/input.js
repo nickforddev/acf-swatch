@@ -21,8 +21,6 @@
 			var val = $(this).val();
 			var result;
 
-			console.info(val)
-
 			// check if color statement is in shorthand syntax
 
 			if (val.indexOf('#') < 0 && val.indexOf('rgb') < 0 && val.indexOf('hsl') < 0) {
