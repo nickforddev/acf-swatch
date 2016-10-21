@@ -41,12 +41,26 @@ Note that while the field can recognize these shortened syntaxes to display the 
 Installation
 ===
 
+Normal
+---
 * Clone the repository to /wp-content/plugins/ in your Wordpress installation
 * Activate in the Plugins manager.
 
-OR
+or
 
-* Install using composer `composer install`
+Composer
+---
+If using Composer (e.g. with [Bedrock](https://roots.io/bedrock/))
+* Add repo to `composer.json`:
+```json
+"repositories": [
+  {
+    "type": "git",
+    "url": "https://github.com/nickforddesign/acf-swatch"
+  }
+]
+```
+* Install using composer `composer require nickford/acf-swatch`
 
 Suggested Usage
 ===
