@@ -106,6 +106,38 @@ Screenshots
 
 ![Color Swatches](/images/swatches.png?raw=true)
 
+Including Within Theme
+===
+Take advantage of the `acf/swatch_settings/path` and `acf/swatch_settings/url` filters to modify where acf-swatch is located so that js and css are found correctly in the backend.
+
+```PHP
+/**
+ * Include ACF Color Swatch Field
+ */
+
+add_filter('acf/swatch_settings/path', 'my_swatch_path', 10, 1);
+
+function my_swatch_path( $path ) {
+  
+  $path = get_template_directory() . '/path/to/acf-swatch';
+  
+  return $path;
+  
+}
+
+add_filter('acf/swatch_settings/url', 'my_swatch_url', 10, 1);
+
+function my_swatch_url( $url ) {
+  
+  $url = get_template_directory_uri() . '/path/to/acf-swatch';
+  
+  return $url;
+  
+}
+
+include( 'path/to/acf-swatch.php' );
+```
+
 Changelog
 ===
 
