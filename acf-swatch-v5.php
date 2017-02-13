@@ -43,8 +43,8 @@ class acf_field_swatch extends acf_field
 		);
 		$this->settings = array(
 			'basename'	=> plugin_basename( __FILE__ ),
-			'path'		=> plugin_dir_path( __FILE__ ),
-			'url'		=> plugin_dir_url( __FILE__ ),
+			'path' 	 => apply_filters( 'acf/swatch_settings/path', plugin_dir_path( __FILE__ ) ),
+			'url'		=> apply_filters( 'acf/swatch_settings/url', plugin_dir_url( __FILE__ ) ),
 			'version'   => '1.0.0'
 		);
 
