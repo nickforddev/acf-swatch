@@ -4,10 +4,10 @@
     "authors": [
         {
             "name": "Nick Ford",
-            "email": "nickford@Nicks-MacBook-Pro.local"
+            "email": "nickforddesign@gmail.com"
         }
     ],
     "require": {},
-    "version": "1.0.0",
+    "version": "1.0.3",
     "type": "wordpress-plugin"
 }
