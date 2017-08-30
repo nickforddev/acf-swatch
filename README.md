@@ -38,6 +38,13 @@ This may be useful for defining CSS linear-gradients, or other situations where 
 
 Note that while the field can recognize these shortened syntaxes to display the color swatch in the Wordpress back end, it will still output only what you entered when using `the_field()` or `get_field()`.
 
+Screenshots
+===
+
+![Choices Field](/images/choices.png?raw=true)
+
+![Color Swatches](/images/swatches.png?raw=true)
+
 Installation
 ===
 
@@ -99,12 +106,6 @@ section {
 </style>
 ```
 
-Screenshots
-===
-
-![Choices Field](/images/choices.png?raw=true)
-
-![Color Swatches](/images/swatches.png?raw=true)
 
 Including Within Theme
 ===
@@ -154,7 +155,7 @@ Changelog
 
 10/14/15 - v1.0.1 Bugfix
 ---
-* Vastly improved browser / OS support by replacing input elements with block elements
+* Improved browser / OS support by replacing input elements with block elements
 
 9/20/15 - v1.0.0 Initial Release
 ---
