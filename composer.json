@@ -9,5 +9,6 @@
     ],
     "require": {},
     "version": "1.0.3",
-    "type": "wordpress-plugin"
+    "type": "wordpress-plugin",
+    "license": "MIT"
 }
