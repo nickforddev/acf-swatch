@@ -40,6 +40,7 @@ class acf_field_swatch extends acf_field
 			'default_value'		=>	'',
 			'other_choice'		=>	0,
 			'save_other_choice'	=>	0,
+            'return_format'		=> 'value'
 		);
 		$this->settings = array(
 			'basename'	=> plugin_basename( __FILE__ ),
@@ -298,6 +299,20 @@ class acf_field_swatch extends acf_field
 			)
 		));
 
+        // return value
+        acf_render_field_setting( $field, array(
+            'label'			=> __('Return Value','acf'),
+            'instructions'	=> __('Specify the returned value on front end','acf'),
+            'type'			=> 'radio',
+            'name'			=> 'return_format',
+            'layout'		=> 'horizontal',
+            'choices'		=> array(
+                'value'			=> __('Value','acf'),
+                'label'			=> __('Label','acf'),
+                'array'			=> __('Both (Array)','acf')
+            )
+        ));
+
 	}
 
 
@@ -413,6 +428,27 @@ class acf_field_swatch extends acf_field
 		return $value;
 
 	}
+
+    /*
+    *  format_value()
+    *
+    *  This filter is appied to the $value after it is loaded from the db and before it is returned to the template
+    *
+    *  @type	filter
+    *  @since	3.6
+    *  @date	23/01/13
+    *
+    *  @param	$value (mixed) the value which was loaded from the database
+    *  @param	$post_id (mixed) the $post_id from which the value was loaded
+    *  @param	$field (array) the field array holding all the field options
+    *
+    *  @return	$value (mixed) the modified value
+    */
+    function format_value( $value, $post_id, $field ) {
+
+        return acf_get_field_type('select')->format_value( $value, $post_id, $field );
+
+    }
 
 	function input_admin_enqueue_scripts() {
 
