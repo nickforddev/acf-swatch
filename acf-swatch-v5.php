@@ -446,7 +446,20 @@ class acf_field_swatch extends acf_field
     */
     function format_value( $value, $post_id, $field ) {
 
-        return acf_get_field_type('select')->format_value( $value, $post_id, $field );
+		// Get label from choices field
+        $value = acf_get_field_type('select')->format_value( $value, $post_id, $field );
+
+        $map_to_transparent = array(
+        	'',
+        	'none'
+       	);
+
+        // Replace values which should be returned as transparent
+		if ( in_array( $value['value'], $map_to_transparent ) ) {
+			$value['value'] = 'transparent';
+		}
+
+		return $value;
 
     }
 
