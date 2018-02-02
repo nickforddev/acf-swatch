@@ -3,7 +3,6 @@
 	function validTextColour(string) {
 		if (string === "") { return false; }
 		if (string === "inherit") { return false; }
-		if (string === "transparent") { return false; }
 
 		var image = document.createElement("img");
 		image.style.color = "rgb(0, 0, 0)";
@@ -22,7 +21,7 @@
 			var result;
 
 			// check if color statement is in shorthand syntax
-			if ( 'none' === val ) {
+			if ( 'none' === val || 'transparent' === val ) {
 				
 				result = 'transparent'; // not shorthand syntax, valid value
 
@@ -52,7 +51,7 @@
 						result = 'transparent'; // invalid color
 						$(this).attr('disabled', true).parent().addClass('disabled');
 					}
-					
+
 				}
 
 			} else {
