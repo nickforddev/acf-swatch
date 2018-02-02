@@ -60,7 +60,7 @@
 
 			var bg = result;
 
-			$(this).siblings('.swatch-toggle').children('.swatch-color').css('background', bg);
+			$(this).siblings('.swatch-toggle').children('.swatch-color').css('background-color', bg);
 		});
 	}
 
