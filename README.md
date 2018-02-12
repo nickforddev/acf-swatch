@@ -142,6 +142,11 @@ include( 'path/to/acf-swatch.php' );
 Changelog
 ===
 
+10/23/17 - v1.0.6
+---
+* [d57ec40](https://github.com/nickforddesign/acf-swatch/pull/11) - Match background-color syntax
+* [4892d0e](https://github.com/nickforddesign/acf-swatch/pull/10) - Allow transparent values to be selected
+
 10/23/17 - v1.0.5
 ---
 * [fa93a8b](https://github.com/nickforddesign/acf-swatch/pull/9) - Add return value option

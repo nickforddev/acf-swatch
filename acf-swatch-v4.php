@@ -1,7 +1,5 @@
 <?php
-
-class acf_field_swatch extends acf_field
-{
+class acf_field_swatch extends acf_field {
 	/*
 	*  __construct
 	*
@@ -11,18 +9,17 @@ class acf_field_swatch extends acf_field
 	*  @date	23/01/13
 	*/
 
-	function __construct()
-	{
+	function __construct() {
 		// vars
 		$this->name = 'swatch';
-		$this->label = __("Color Swatch",'acf');
-		$this->category = __("Choice",'acf');
+		$this->label = __('Color Swatch', 'acf');
+		$this->category = __('Choice', 'acf');
 		$this->defaults = array(
-			'layout'			=>	'vertical',
-			'choices'			=>	array(),
-			'default_value'		=>	'',
-			'other_choice'		=>	0,
-			'save_other_choice'	=>	0,
+			'layout' =>	'vertical',
+			'choices'	=>	array(),
+			'default_value'	=>	'',
+			'other_choice' =>	0,
+			'save_other_choice'	=>0,
 		);
 		$this->settings = array(
 			'path' => apply_filters('acf/helpers/get_path', __FILE__),
@@ -30,12 +27,9 @@ class acf_field_swatch extends acf_field
 			'version' => '1.0.0'
 		);
 
-
 		// do not delete!
-    	parent::__construct();
-
+    parent::__construct();
 	}
-
 
 	/*
 	*  create_field()
@@ -49,12 +43,11 @@ class acf_field_swatch extends acf_field
 	*  @date	23/01/13
 	*/
 
-	function create_field( $field )
-	{
+	function create_field($field) {
 		$obj = array();
 		$arr = explode("\n", $field['choices']);
 
-		foreach($arr as $a) {
+		foreach ($arr as $a) {
 			$k = explode(' : ', $a);
 			$obj[$k[0]] = $k[1];
 		}
@@ -67,69 +60,45 @@ class acf_field_swatch extends acf_field
 
 		//$e .= var_dump($obj);
 
-
 		// add choices
-		if( is_array($field['choices']) )
-		{
-			foreach( $field['choices'] as $key => $value )
-			{
-
+		if (is_array($field['choices'])) {
+			foreach($field['choices'] as $key => $value) {
 				// vars
 				$i++;
 				$atts = '';
 
-
 				// if there is no value and this is the first of the choices, select this on by default
-				if( $field['value'] === false )
-				{
-					if( $i === 1 )
-					{
+				if ($field['value'] === false) {
+					if ($i === 1) {
+						$atts = 'checked="checked" data-checked="checked"';
+					}
+				} else {
+					if (strval($key) === strval($field['value'])) {
 						$atts = 'checked="checked" data-checked="checked"';
 					}
 				}
-				else
-				{
-					if( strval($key) === strval($field['value']) )
-					{
-						$atts = 'checked="checked" data-checked="checked"';
-					}
-				}
-
-
 				// HTML
 				$e .= '<li><label><input id="' . esc_attr($field['id']) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . esc_attr( $atts ) . ' /><div class="swatch-toggle"><div class="swatch-color"></div></div>' . $value . '</label></li>';
 			}
 		}
 
-
 		// other choice
-		if( $field['other_choice'] )
-		{
+		if ($field['other_choice']) {
 			// vars
 			$atts = '';
 			$atts2 = 'name="" value="" style="display:none"';
 
-
-			if( $field['value'] !== false )
-			{
-				if( !isset($field['choices'][ $field['value'] ]) )
-				{
+			if ($field['value'] !== false) {
+				if (!isset($field['choices'][$field['value']])) {
 					$atts = 'checked="checked" data-checked="checked"';
-					$atts2 = 'name="' . esc_attr($field['name']) . '" value="' . esc_attr($field['value']) . '"' ;
+					$atts2 = 'name="' . esc_attr($field['name']) . '" value="' . esc_attr($field['value']) . '"';
 				}
 			}
-
-
 			$e .= '<li><label><input id="' . esc_attr($field['id']) . '-other" type="radio" name="' . esc_attr($field['name']) . '" value="other" ' . $atts . ' /><div class="swatch-toggle"><div class="swatch-color"></div></div>' . __("Other", 'acf') . '</label> <input type="text" ' . $atts2 . ' /></li>';
 		}
-
-
 		$e .= '</ul>';
-
 		echo $e;
-
 	}
-
 
 	/*
 	*  create_options()
@@ -144,16 +113,13 @@ class acf_field_swatch extends acf_field
 	*  @param	$field	- an array holding all the field's data
 	*/
 
-	function create_options( $field )
-	{
+	function create_options($field) {
 		// vars
 		$key = $field['name'];
 
 		// implode checkboxes so they work in a textarea
-		if( is_array($field['choices']) )
-		{
-			foreach( $field['choices'] as $k => $v )
-			{
+		if (is_array($field['choices'])) {
+			foreach ($field['choices'] as $k => $v) {
 				$field['choices'][ $k ] = $k . ' : ' . $v;
 			}
 			$field['choices'] = implode("\n", $field['choices']);
@@ -162,7 +128,7 @@ class acf_field_swatch extends acf_field
 		?>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label for=""><?php _e("Choices",'acf'); ?></label>
+				<label for=""><?php _e('Choices', 'acf'); ?></label>
 				<p class="description"><?php _e("Enter your colors one per line",'acf'); ?><br />
 				<br />
 				<?php _e("red : Red",'acf'); ?><br />
@@ -240,14 +206,11 @@ class acf_field_swatch extends acf_field
 						'horizontal' => __("Horizontal",'acf')
 					)
 				));
-
 				?>
 			</td>
 		</tr>
 		<?php
-
 	}
-
 
 	/*
 	*  update_value()
@@ -265,39 +228,30 @@ class acf_field_swatch extends acf_field
 	*  @return	$value - the modified value
 	*/
 
-	function update_value( $value, $post_id, $field )
-	{
+	function update_value($value, $post_id, $field) {
 		// validate
-		if( $field['save_other_choice'] )
-		{
+		if ($field['save_other_choice']) {
 			// value isn't in choices yet
-			if( !isset($field['choices'][ $value ]) )
-			{
+			if (!isset($field['choices'][ $value ])) {
 				// update $field
 				$field['choices'][ $value ] = $value;
 
-
 				// can save
-				if( isset($field['field_group']) )
-				{
+				if (isset($field['field_group'])) {
 					do_action('acf/update_field', $field, $field['field_group']);
 				}
-
 			}
 		}
 
 		return $value;
 	}
 
-	function input_admin_enqueue_scripts()
-	{
+	function input_admin_enqueue_scripts() {
 		// Note: This function can be removed if not used
-
 
 		// register ACF scripts
 		wp_register_script( 'acf-input-swatch', $this->settings['dir'] . 'js/min/input-min.js', array('acf-input') );
 		wp_register_style( 'acf-input-swatch', $this->settings['dir'] . 'css/input.css', array('acf-input') );
-
 
 		// scripts
 		wp_enqueue_script(array(
@@ -307,10 +261,7 @@ class acf_field_swatch extends acf_field
 		wp_enqueue_style(array(
 			'acf-input-swatch',
 		));
-
-
 	}
-
 }
 
 new acf_field_swatch();
