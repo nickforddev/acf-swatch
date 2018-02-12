@@ -12,7 +12,7 @@
 
 // exit if accessed directly
 if (!defined('ABSPATH'))
-	exit;
+  exit;
 
 if (!class_exists('acf_field_swatch')):
   class acf_field_swatch extends acf_field {
@@ -26,8 +26,8 @@ if (!class_exists('acf_field_swatch')):
      *  @date	9/20/15
      */
 
-		private $settings;
-		
+    private $settings;
+    
     function __construct() {
       // vars
       $this->name = 'swatch';
@@ -40,8 +40,8 @@ if (!class_exists('acf_field_swatch')):
         'other_choice' => 0,
         'save_other_choice' => 0,
         'return_format' => 'value'
-			);
-			
+      );
+      
       $this->settings = array(
         'basename' => plugin_basename(__FILE__),
         'path' => apply_filters('acf/swatch_settings/path', plugin_dir_path(__FILE__)),
@@ -50,8 +50,8 @@ if (!class_exists('acf_field_swatch')):
       );
       // do not delete!
       parent::__construct();
-		}
-		
+    }
+    
     /*
      *  render_field()
      *
@@ -70,22 +70,22 @@ if (!class_exists('acf_field_swatch')):
     function render_field($field) {
       // vars
       $i = 0;
-			$e = '';
-			
+      $e = '';
+      
       $ul = array(
         'class' => 'acf-swatch-list',
         'data-allow_null' => $field['allow_null'],
         'data-other_choice' => $field['other_choice']
-			);
-			
+      );
+      
       // append to class
       $ul['class'] .= ' ' . ($field['layout'] == 'horizontal' ? 'acf-hl' : 'acf-bl');
-			$ul['class'] .= ' ' . $field['class'];
-			
+      $ul['class'] .= ' ' . $field['class'];
+      
       // select value
       $checked = '';
-			$value = strval($field['value']);
-			
+      $value = strval($field['value']);
+      
       // selected choice
       if (isset($field['choices'][$value])) {
         $checked = $value;
@@ -96,14 +96,14 @@ if (!class_exists('acf_field_swatch')):
       } elseif ($field['allow_null']) {
         // do nothing
       } else {
-				// select first input by default
+        // select first input by default
         $checked = key($field['choices']);
-			}
-			
+      }
+      
       // ensure $checked is a string (could be an int)
       $checked = strval($checked);
-			// other choice
-			
+      // other choice
+      
       if ($field['other_choice']) {
         // vars
         $input = array(
@@ -111,72 +111,72 @@ if (!class_exists('acf_field_swatch')):
           'name' => $field['name'],
           'value' => '',
           'disabled' => 'disabled'
-				);
-				
+        );
+        
         // select other choice if value is not a valid choice
         if ($checked === 'other') {
           unset($input['disabled']);
           $input['value'] = $field['value'];
-				}
-				
+        }
+        
         // append other choice
         $field['choices']['other'] = '</label><input type="text"' . acf_esc_attr($input) . ' /><label>';
-			}
-			
+      }
+      
       // bail early if no choices
       if (empty($field['choices']))
-				return;
-				
+        return;
+        
       // hiden input
       $e .= acf_get_hidden_input(array(
         'name' => $field['name']
-			));
-			
+      ));
+      
       // open
-			$e .= '<ul ' . acf_esc_attr($ul) . '>';
-			
+      $e .= '<ul ' . acf_esc_attr($ul) . '>';
+      
       // foreach choices
       foreach ($field['choices'] as $value => $label) {
         // ensure value is a string
         $value = strval($value);
         $class = '';
         // increase counter
-				$i++;
-				
+        $i++;
+        
         // vars
         $atts = array(
           'type' => 'radio',
           'id' => $field['id'],
           'name' => $field['name'],
           'value' => $value
-				);
-				
+        );
+        
         // checked
         if ($value === $checked) {
           $atts['checked'] = 'checked';
           $class = ' class="selected"';
-				}
-				
+        }
+        
         // disabled
         if (isset($field['disabled']) && acf_in_array($value, $field['disabled'])) {
           $atts['disabled'] = 'disabled';
-				}
-				
+        }
+        
         // id (use crounter for each input)
         if ($i > 1) {
           $atts['id'] .= '-' . $value;
-				}
-				
+        }
+        
         // append
         $e .= '<li><label' . $class . '><input ' . acf_esc_attr($atts) . '/><div class="swatch-toggle"><div class="swatch-color"></div></div>' . $label . '</label></li>';
-			}
-			
+      }
+      
       // close
       $e .= '</ul>';
       // return
       echo $e;
-		}
-		
+    }
+    
     /*
      *  render_field_settings()
      *
@@ -192,16 +192,16 @@ if (!class_exists('acf_field_swatch')):
 
     function render_field_settings($field) {
       // encode choices (convert from array)
-			$field['choices'] = acf_encode_choices($field['choices']);
-			
+      $field['choices'] = acf_encode_choices($field['choices']);
+      
       // choices
       acf_render_field_setting($field, array(
         'label' => __('Choices', 'acf'),
         'instructions' => __('Enter each color option one per line.', 'acf') . '<br /><br />' . __('red : Red', 'acf') . '<br />' . __('#fff : White', 'acf') . '<br />' . __('rgba(0,0,0,1) : Black', 'acf'),
         'type' => 'textarea',
         'name' => 'choices'
-			));
-			
+      ));
+      
       // allow_null
       acf_render_field_setting($field, array(
         'label' => __('Allow Null?', 'acf'),
@@ -213,8 +213,8 @@ if (!class_exists('acf_field_swatch')):
           0 => __('No', 'acf')
         ),
         'layout' => 'horizontal'
-			));
-			
+      ));
+      
       // other_choice
       /* Doesn't work currently
       acf_render_field_setting( $field, array(
@@ -234,16 +234,16 @@ if (!class_exists('acf_field_swatch')):
       'name'			=> 'save_other_choice',
       'message'		=> __('Save 'other' values to the field's choices', 'acf')
       ));
-			*/
-			
+      */
+      
       // default_value
       acf_render_field_setting($field, array(
         'label' => __('Default Value', 'acf'),
         'instructions' => __('Appears when creating a new post', 'acf'),
         'type' => 'text',
         'name' => 'default_value'
-			));
-			
+      ));
+      
       // layout
       acf_render_field_setting($field, array(
         'label' => __('Layout', 'acf'),
@@ -255,8 +255,8 @@ if (!class_exists('acf_field_swatch')):
           'vertical' => __('Vertical', 'acf'),
           'horizontal' => __('Horizontal', 'acf')
         )
-			));
-			
+      ));
+      
       // return value
       acf_render_field_setting($field, array(
         'label' => __('Return Value', 'acf'),
@@ -270,8 +270,8 @@ if (!class_exists('acf_field_swatch')):
           'array' => __('Both (Array)', 'acf')
         )
       ));
-		}
-		
+    }
+    
     /*
      *  update_field()
      *
@@ -292,8 +292,8 @@ if (!class_exists('acf_field_swatch')):
       $field['choices'] = acf_decode_choices($field['choices']);
       // return
       return $field;
-		}
-		
+    }
+    
     /*
      *  update_value()
      *
@@ -315,8 +315,8 @@ if (!class_exists('acf_field_swatch')):
 
       // bail early if no value (allow 0 to be saved)
       if (!$value && !is_numeric($value))
-				return $value;
-				
+        return $value;
+        
       // save_other_choice
       if ($field['save_other_choice']) {
         // value isn't in choices yet
@@ -324,12 +324,12 @@ if (!class_exists('acf_field_swatch')):
           // get raw $field (may have been changed via repeater field)
           // if field is local, it won't have an ID
           $selector = $field['ID'] ? $field['ID'] : $field['key'];
-					$field = acf_get_field($selector, true);
-					
+          $field = acf_get_field($selector, true);
+          
           // bail early if no ID (JSON only)
           if (!$field['ID'])
-						return $value;
-						
+            return $value;
+            
           // update $field
           $field['choices'][$value] = $value;
           // save
@@ -338,8 +338,8 @@ if (!class_exists('acf_field_swatch')):
       }
       // return
       return $value;
-		}
-		
+    }
+    
     /*
      *  load_value()
      *
@@ -363,8 +363,8 @@ if (!class_exists('acf_field_swatch')):
       }
       // return
       return $value;
-		}
-		
+    }
+    
     /*
      *  format_value()
      *
@@ -383,47 +383,47 @@ if (!class_exists('acf_field_swatch')):
 
     function format_value($value, $post_id, $field) {
       // Get label from choices field
-			$value = acf_get_field_type('select')->format_value($value, $post_id, $field);
-			
+      $value = acf_get_field_type('select')->format_value($value, $post_id, $field);
+      
       $map_to_transparent = array(
         '',
         'none'
-			);
-			
+      );
+      
       // Replace values which should be returned as transparent
       if (in_array($value['value'], $map_to_transparent)) {
         $value['value'] = 'transparent';
-			}
-			
+      }
+      
       return $value;
-		}
-		
+    }
+    
     function input_admin_enqueue_scripts() {
       // vars
       $url = $this->settings['url'];
-			$version = $this->settings['version'];
-			
+      $version = $this->settings['version'];
+      
       // register ACF scripts
       wp_register_script('acf-input-swatch', trailingslashit($url) . 'js/input.js', array(
         'acf-input'
-			), $version);
-			
+      ), $version);
+      
       wp_register_style('acf-input-swatch', trailingslashit($url) . 'css/input.css', array(
         'acf-input'
-			), $version);
-			
+      ), $version);
+      
       // scripts
       wp_enqueue_script(array(
         'acf-input-swatch'
-			));
-			
+      ));
+      
       // styles
       wp_enqueue_style(array(
         'acf-input-swatch'
       ));
     }
-	}
-	
-	new acf_field_swatch();
-	
+  }
+  
+  new acf_field_swatch();
+  
 endif;
