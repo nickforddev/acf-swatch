@@ -13,7 +13,7 @@
 // exit if accessed directly
 if (!defined('ABSPATH'))
 	exit;
-	
+
 if (!class_exists('acf_field_swatch')):
   class acf_field_swatch extends acf_field {
 
@@ -40,7 +40,8 @@ if (!class_exists('acf_field_swatch')):
         'other_choice' => 0,
         'save_other_choice' => 0,
         'return_format' => 'value'
-      );
+			);
+			
       $this->settings = array(
         'basename' => plugin_basename(__FILE__),
         'path' => apply_filters('acf/swatch_settings/path', plugin_dir_path(__FILE__)),
@@ -119,7 +120,7 @@ if (!class_exists('acf_field_swatch')):
 				}
 				
         // append other choice
-        $field['choices']['other'] = '</label><input type='text' ' . acf_esc_attr($input) . ' /><label>';
+        $field['choices']['other'] = '</label><input type="text"' . acf_esc_attr($input) . ' /><label>';
 			}
 			
       // bail early if no choices
@@ -153,7 +154,7 @@ if (!class_exists('acf_field_swatch')):
         // checked
         if ($value === $checked) {
           $atts['checked'] = 'checked';
-          $class = ' class='selected'';
+          $class = ' class="selected"';
 				}
 				
         // disabled
@@ -167,7 +168,7 @@ if (!class_exists('acf_field_swatch')):
 				}
 				
         // append
-        $e .= '<li><label' . $class . '><input ' . acf_esc_attr($atts) . '/><div class='swatch-toggle'><div class='swatch-color'></div></div>' . $label . '</label></li>';
+        $e .= '<li><label' . $class . '><input ' . acf_esc_attr($atts) . '/><div class="swatch-toggle"><div class="swatch-color"></div></div>' . $label . '</label></li>';
 			}
 			
       // close
