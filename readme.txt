@@ -25,6 +25,7 @@ Supports all of the following color formats:
 
 Note: you may also use `none` to show a transparent swatch with a checkerboard background.
 
+
 == Compatibility ==
 
 This ACF field type is compatible with:
@@ -32,6 +33,11 @@ This ACF field type is compatible with:
 *   ACF 4
 *   ACF 5 (PRO version)
 
+
+== Screenshots ==
+
+1. Use the same syntax as defining ACF radio buttons
+2. Users will see color swatches that act like radio buttons
 
 == Installation ==
 
