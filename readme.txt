@@ -43,6 +43,10 @@ This ACF field type is compatible with:
 
 == Changelog ==
 
+4/25/18 - v1.0.7
+---
+*  [issue](https://github.com/nickforddesign/acf-swatch/issues/12) - Fixed bug with returning value instead of array
+
 10/23/17 - v1.0.6
 ---
 *  [d57ec40](https://github.com/nickforddesign/acf-swatch/pull/11) - Match background-color syntax
