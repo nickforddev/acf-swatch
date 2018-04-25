@@ -389,12 +389,17 @@ if (!class_exists('acf_field_swatch')):
         '',
         'none'
       );
-      
+
       // Replace values which should be returned as transparent
-      if (in_array($value['value'], $map_to_transparent)) {
-        $value['value'] = 'transparent';
+      if (is_array($value)) {
+        if (in_array($value['value'], $map_to_transparent)) {
+          $value['value'] = 'transparent';
+        }
+      } else {
+        if (in_array($value, $map_to_transparent)) {
+          $value = 'transparent';
+        }
       }
-      
       return $value;
     }
     

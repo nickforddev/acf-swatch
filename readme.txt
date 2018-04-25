@@ -3,6 +3,7 @@ Contributors: nickforddesign
 Tags: acf, advanced custom fields, color, swatch, color picker, select, options
 Requires at least: 4.0
 Tested up to: 5
+Requires PHP: 5.6
 Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
