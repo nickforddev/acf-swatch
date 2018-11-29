@@ -4,7 +4,7 @@
 Plugin Name: Advanced Custom Fields: Color Swatches
 Plugin URI: #
 Description: Allows for a radio type selection of a color swatch
-Version: 1.0.0
+Version: 1.0.7
 Author: Nick Ford
 Author URI: http://nickforddesign.com
 License: GPLv2 or later

@@ -48,14 +48,11 @@ Screenshots
 Installation
 ===
 
-Normal
+### Wordpress Plugin Store
 ---
-* Clone the repository to /wp-content/plugins/ in your Wordpress installation
-* Activate in the Plugins manager.
+https://wordpress.org/plugins/acf-color-swatches
 
-or
-
-Composer
+### Composer
 ---
 If using Composer (e.g. with [Bedrock](https://roots.io/bedrock/))
 * Add repo to `composer.json`:
@@ -68,6 +65,11 @@ If using Composer (e.g. with [Bedrock](https://roots.io/bedrock/))
 ]
 ```
 * Install using composer `composer require nickford/acf-swatch`
+
+### Manual
+---
+* Clone the repository to /wp-content/plugins/ in your Wordpress installation
+* Activate in the Plugins manager.
 
 Suggested Usage
 ===
