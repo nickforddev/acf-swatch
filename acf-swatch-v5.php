@@ -80,6 +80,7 @@ if (!class_exists('acf_field_swatch')):
       
       // append to class
       $ul['class'] .= ' ' . ($field['layout'] == 'horizontal' ? 'acf-hl' : 'acf-bl');
+      $ul['class'] .= ' ' . ($field['hide_label'] == true ? 'acf-hide-label' : '');
       $ul['class'] .= ' ' . $field['class'];
       
       // select value
@@ -168,7 +169,7 @@ if (!class_exists('acf_field_swatch')):
         }
         
         // append
-        $e .= '<li><label' . $class . '><input ' . acf_esc_attr($atts) . '/><div class="swatch-toggle"><div class="swatch-color"></div></div>' . $label . '</label></li>';
+        $e .= '<li><label' . $class . '><input ' . acf_esc_attr($atts) . '/><div class="swatch-toggle"><div class="swatch-color"></div></div><div class="swatch-label">' . $label . '</div></label></li>';
       }
       
       // close
@@ -212,6 +213,19 @@ if (!class_exists('acf_field_swatch')):
           1 => __('Yes', 'acf'),
           0 => __('No', 'acf')
         ),
+        'layout' => 'horizontal'
+      ));
+
+      acf_render_field_setting($field, array(
+        'label' => __('Hide Label?', 'acf'),
+        'instructions' => 'Can use label to generate a class',
+        'type' => 'radio',
+        'name' => 'hide_label',
+        'choices' => array(
+          1 => __('Yes', 'acf'),
+          0 => __('No', 'acf')
+        ),
+        'default_value' => 0,
         'layout' => 'horizontal'
       ));
       
