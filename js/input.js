@@ -22,13 +22,13 @@
 
 			// check if color statement is in shorthand syntax
 			if ( 'none' === val || 'transparent' === val ) {
-				
+
 				result = 'transparent'; // not shorthand syntax, valid value
 
-			} else if (val.indexOf('#') < 0 && val.indexOf('rgb') < 0 && val.indexOf('hsl') < 0) {
+			} else if (val.indexOf('#') < 0 && val.indexOf('rgb') < 0 && val.indexOf('hsl') < 0 && val.indexOf('linear-gradient') < 0) {
 
 				if (val.indexOf('%') > -1) { // shorthand syntax for hsl
-					
+
 					if (val.split(',').length > 3) { // hsla confirmed
 						result = 'hsla(' + val + ')'; //hsla
 					} else {
@@ -36,7 +36,7 @@
 					}
 
 				} else if (val.split(',').length > 1) { // shorthand for either rgb or rgba
-					
+
 					if (val.split(',').length > 3) { // rgba confirmed
 						result = 'rgba(' + val + ')'; //rgba
 					} else {
@@ -44,7 +44,7 @@
 					}
 
 				} else {
-					
+
 					if (validTextColour(val)) {
 						result = val; // color was already complete
 					} else {
@@ -60,7 +60,7 @@
 
 			var bg = result;
 
-			$(this).siblings('.swatch-toggle').children('.swatch-color').css('background-color', bg);
+			$(this).siblings('.swatch-toggle').children('.swatch-color').css({ background: bg });
 		});
 	}
 
@@ -90,3 +90,4 @@
 	}
 
 })(jQuery);
+

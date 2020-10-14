@@ -164,7 +164,7 @@ if (!class_exists('acf_field_swatch')):
         
         // id (use crounter for each input)
         if ($i > 1) {
-          $atts['id'] .= '-' . $value;
+          $atts['id'] .= '-' . sanitize_title( $value );
         }
         
         // append
